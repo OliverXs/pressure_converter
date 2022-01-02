@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'shared/constants/matrix.dart';
 
 void main() {
@@ -19,21 +19,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Conversão'),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   final MatrixUnitys _matrixUnitys = MatrixUnitys();
   final TextEditingController _firstController = TextEditingController();
   final TextEditingController _secondController = TextEditingController();
@@ -87,12 +85,18 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+//
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: const Color(0xff333231),
       appBar: AppBar(
-        title: Center(child: Text(widget.title)),
+        backgroundColor: const Color(0xffACC529),
+        title: Center(
+            child: Text("PRESSURE CONVERTER",
+                style: GoogleFonts.merriweather(
+                    color: Colors.black, fontWeight: FontWeight.bold))),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -115,16 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r"[-\d\.]")),
                       ],
-                      style: const TextStyle(fontSize: 20),
-                      decoration: const InputDecoration(
-                        fillColor: CupertinoColors.systemGrey4,
-                        filled: true,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        errorStyle: null,
-                        errorMaxLines: null,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      )),
+                      style: GoogleFonts.openSans(fontSize: 25),
+                      decoration: textInputStyle()),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -160,11 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                       },
                       child: Container(
-                          height: size.height * .08,
+                          height: size.height * .1,
                           width: size.width / 3,
-                          color: Colors.blue,
+                          color: const Color(0xffACC529),
                           alignment: Alignment.center,
-                          child: Text(firstUnity)),
+                          child: Text(firstUnity,
+                              style: GoogleFonts.merriweather(
+                                  fontSize: 25, letterSpacing: 2))),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -172,9 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         calc();
                       },
                       child: Container(
-                          height: size.height * .08,
+                          height: size.height * .1,
                           width: size.width / 3,
-                          color: Colors.blue,
+                          color: const Color(0xffACC529),
                           alignment: Alignment.center,
                           child: Center(
                             child: Image.asset(
@@ -214,11 +212,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                       },
                       child: Container(
-                          height: size.height * .08,
+                          height: size.height * .1,
                           width: size.width / 3,
-                          color: Colors.blue,
+                          color: const Color(0xffACC529),
                           alignment: Alignment.center,
-                          child: Text(secondUnity)),
+                          child: Text(secondUnity,
+                              style: GoogleFonts.merriweather(
+                                  fontSize: 25, letterSpacing: 2))),
                     ),
                   ],
                 ),
@@ -235,16 +235,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r"[-\d\.]")),
                       ],
-                      style: const TextStyle(fontSize: 20),
-                      decoration: const InputDecoration(
-                        fillColor: CupertinoColors.systemGrey4,
-                        filled: true,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        errorStyle: null,
-                        errorMaxLines: null,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      )),
+                      style: GoogleFonts.openSans(fontSize: 25),
+                      decoration: textInputStyle()),
                 ),
               ],
             ),
@@ -254,9 +246,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  InputDecoration textInputStyle() {
+    return const InputDecoration(
+      fillColor: CupertinoColors.systemGrey4,
+      filled: true,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      errorStyle: null,
+      errorMaxLines: null,
+      focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0xffE2FF4F), width: 2)),
+      contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+    );
+  }
+
   Center displayPickerText(String text) {
     return Center(
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 
